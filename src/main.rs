@@ -47,7 +47,7 @@ fn gen_random_kmer(k: usize) -> String {
     s
 }
 
-fn main() {
+fn main() -> Result<(), Box<dyn std::error::Error>> {
     let num_hardware_threads = num_cpus::get() as u32;
     let max_num_threads: String = (num_cpus::get() as u32).to_string();
     let max_num_collate_threads: String = (16_u32.min(num_hardware_threads).max(2_u32)).to_string();
@@ -319,6 +319,7 @@ fn main() {
             Ok(nc) if nc == 0 => {
                 warn!(log, "found 0 corrected barcodes; please check the input.");
             },
+            Err(e) => {return Err(e)},
             _ => (),
         };
     }
@@ -530,4 +531,5 @@ fn main() {
         )
         .expect("could not perform inference from equivalence class counts.");
     }
+    Ok(())
 }
