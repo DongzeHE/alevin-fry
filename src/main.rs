@@ -319,7 +319,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             Ok(nc) if nc == 0 => {
                 warn!(log, "found 0 corrected barcodes; please check the input.");
             },
-            Err(e) => {return Err(e)},
+            Err(e) => {std::process::exit(1)},
             _ => (),
         };
     }
