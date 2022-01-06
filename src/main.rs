@@ -306,7 +306,7 @@ fn main() {
         // velo_mode --- currently, on this branch, it is always false
         let velo_mode = false; //t.is_present("velocity-mode");
 
-        let nc = generate_permit_list(
+        match generate_permit_list(
             input_dir,
             output_dir,
             fmeth,
@@ -315,11 +315,12 @@ fn main() {
             velo_mode,
             &cmdline,
             &log,
-        )
-        .unwrap();
-        if nc == 0 {
-            warn!(log, "found 0 corrected barcodes; please check the input.");
-        }
+        ) {
+            Ok(nc) if nc == 0 => {
+                warn!(log, "found 0 corrected barcodes; please check the input.");
+            },
+            _ => (),
+        };
     }
 
     // convert a BAM file, in *transcriptomic coordinates*, with
