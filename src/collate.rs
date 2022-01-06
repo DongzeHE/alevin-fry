@@ -69,7 +69,7 @@ pub fn collate(
         return Err(es.into());
     }
 
-    // type TsvRec = (u64, u64);
+    type TsvRec = (u64, u64);
     // let mut tsv_map = Vec::<TsvRec>::new(); //HashMap::<u64, u64>::new();
     // take header
     let mut rbuf = [0u8;8];

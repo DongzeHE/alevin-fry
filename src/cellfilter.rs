@@ -626,7 +626,8 @@ pub fn generate_permit_list(
 
     if !i_dir.exists() {
         crit!(log, "the input RAD path {} does not exist", rad_dir);
-        std::process::exit(1);
+        // std::process::exit(1);
+        return Err(format!("the input RAD path {} does not exist", rad_dir).into());
     }
 
     let mut first_bclen = 0usize;
