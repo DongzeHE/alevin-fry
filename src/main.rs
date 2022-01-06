@@ -442,7 +442,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                         Some(error) => {
                             match *error.kind() {
                                 // if a deserialize error, we already complained about it
-                                ErrorKind::Deserialize { .. } => {}
+                                ErrorKind::Deserialize { .. }=> {return Err("execution terminated unexpectedly".into())},
                                 // if another type of error, just panic for now
                                 _ => {
                                     panic!("could not quantify rad file.");
@@ -482,7 +482,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                         Some(error) => {
                             match *error.kind() {
                                 // if a deserialize error, we already complained about it
-                                ErrorKind::Deserialize { .. } => {}
+                                ErrorKind::Deserialize { .. }=> {return Err("execution terminated unexpectedly".into())},
                                 // if another type of error, just panic for now
                                 _ => {
                                     panic!("could not quantify rad file.");
