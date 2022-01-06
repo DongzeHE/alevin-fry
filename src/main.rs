@@ -318,7 +318,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         ) {
             Ok(nc) if nc == 0 => {
                 warn!(log, "found 0 corrected barcodes; please check the input.");
-            },
+            }
             Err(e) => return Err(e),
             _ => (),
         };
@@ -442,7 +442,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                         Some(error) => {
                             match *error.kind() {
                                 // if a deserialize error, we already complained about it
-                                ErrorKind::Deserialize { .. }=> return Err("execution terminated unexpectedly".into()),
+                                ErrorKind::Deserialize { .. } => {
+                                    return Err("execution terminated unexpectedly".into())
+                                }
                                 // if another type of error, just panic for now
                                 _ => {
                                     panic!("could not quantify rad file.");
@@ -482,7 +484,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                         Some(error) => {
                             match *error.kind() {
                                 // if a deserialize error, we already complained about it
-                                ErrorKind::Deserialize { .. }=> return Err("execution terminated unexpectedly".into()),
+                                ErrorKind::Deserialize { .. } => {
+                                    return Err("execution terminated unexpectedly".into())
+                                }
                                 // if another type of error, just panic for now
                                 _ => {
                                     panic!("could not quantify rad file.");

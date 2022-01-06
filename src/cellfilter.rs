@@ -525,7 +525,9 @@ fn process_filtered(
         writer.write_all(&1u64.to_le_bytes()).unwrap();
 
         // second u64 represents barcode length
-        writer.write_all(&(u64::from(ft_vals.bclen)).to_le_bytes()).unwrap();
+        writer
+            .write_all(&(u64::from(ft_vals.bclen)).to_le_bytes())
+            .unwrap();
 
         // the rest records the permitted barcode:freq hashmap
         bincode::serialize_into(&mut writer, &permitted_map)
@@ -547,17 +549,18 @@ fn process_filtered(
     let o_path = parent.join("all_freq.bin");
     let output = std::fs::File::create(&o_path).expect("could not create output.");
     let mut writer = BufWriter::new(&output);
-    
+
     {
         // first u64 represents file format version, currently it is version 1.
         writer.write_all(&1u64.to_le_bytes()).unwrap();
 
         // second u64 represents barcode length
-        writer.write_all(&(u64::from(ft_vals.bclen)).to_le_bytes()).unwrap();
+        writer
+            .write_all(&(u64::from(ft_vals.bclen)).to_le_bytes())
+            .unwrap();
 
         // the rest records the barcode:freq hashmap
-        bincode::serialize_into(&mut writer, &hm)
-            .expect("couldn't write to all_freq.bin.");
+        bincode::serialize_into(&mut writer, &hm).expect("couldn't write to all_freq.bin.");
     }
     // for (k, v) in hm {
     //     let bc_mer: BitKmer = (*k, ft_vals.bclen as u8);

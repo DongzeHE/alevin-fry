@@ -72,22 +72,21 @@ pub fn collate(
     type TsvRec = (u64, u64);
     // let mut tsv_map = Vec::<TsvRec>::new(); //HashMap::<u64, u64>::new();
     // take header
-    let mut rbuf = [0u8;8];
+    let mut rbuf = [0u8; 8];
 
     // open file
     let freq_file =
         std::fs::File::open(parent.join("permit_freq.bin")).expect("couldn't open file");
 
     // read header
-    let mut rdr = BufReader::new( &freq_file); 
+    let mut rdr = BufReader::new(&freq_file);
     rdr.read_exact(&mut rbuf).unwrap();
     let _freq_file_version = rbuf.pread::<u64>(0).unwrap();
     rdr.read_exact(&mut rbuf).unwrap();
     let _bc_len = rbuf.pread::<u64>(0).unwrap();
-    let freq_hm:HashMap<u64,u64>  = bincode::deserialize_from(rdr).unwrap();
-    let total_to_collate:u64 = freq_hm.values().sum();
+    let freq_hm: HashMap<u64, u64> = bincode::deserialize_from(rdr).unwrap();
+    let total_to_collate: u64 = freq_hm.values().sum();
     let mut tsv_map = Vec::from_iter(freq_hm.into_iter());
-
 
     // let mut rdr = csv::ReaderBuilder::new()
     //     .has_headers(false)
